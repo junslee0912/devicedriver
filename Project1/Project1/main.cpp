@@ -33,7 +33,7 @@ TEST_F(DeviceDriverTestFixture, ReadFromHW)
 
 TEST_F(DeviceDriverTestFixture, ReadFailExceptionCase) 
 {
-	EXPECT_CALL(mock, read((long)0xFF)).Times(DeviceDriver::COMPARE_COUNT).WillOnce(testing::Return(5));
+	EXPECT_CALL(mock, read((long)0xFF)).Times(2).WillOnce(testing::Return(5));
 	
 	try
 	{

@@ -14,13 +14,22 @@ DeviceDriver::DeviceDriver(FlashMemoryDevice* hardware) : m_hardware(hardware)
 
 int DeviceDriver::read(long address)
 {
-    int returnArr[COMPARE_COUNT] = { 0, };
+    int retBefore = 0;
+    int retNow = 0;
     for (int i = 0; i < COMPARE_COUNT; i++)
     {
-        returnArr[i] = (int)(m_hardware->read(address));
+        if (i == 0) { 
+            retBefore = (int)(m_hardware->read(address)); 
+            continue;
+        }
+
+        retNow = (int)(m_hardware->read(address));
+        if(retBefore != retNow)
+            throw readFailException("ReadFailException: Different Value Exists");
+        retBefore = retNow;
     }
-    checkAssert(returnArr);
-    return returnArr[0];
+
+    return retNow;
 }
 
 void DeviceDriver::checkAssert(int* returnArr)
