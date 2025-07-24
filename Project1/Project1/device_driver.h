@@ -10,6 +10,4 @@ public:
     static constexpr int COMPARE_COUNT = 5;
 protected:
     FlashMemoryDevice* m_hardware;
-private:
-    void checkAssert(int* returnArr);
 };
