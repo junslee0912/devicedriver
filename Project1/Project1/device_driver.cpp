@@ -24,24 +24,14 @@ int DeviceDriver::read(long address)
         }
 
         retNow = (int)(m_hardware->read(address));
+
         if(retBefore != retNow)
             throw readFailException("ReadFailException: Different Value Exists");
+        
         retBefore = retNow;
     }
 
     return retNow;
-}
-
-void DeviceDriver::checkAssert(int* returnArr)
-{
-    for (int i = 0; i < COMPARE_COUNT; i++)
-    {
-        for (int j = 0; j < COMPARE_COUNT; j++)
-        {
-            if(returnArr[i]!=returnArr[j])
-                throw readFailException("ReadFailException: Different Value Exists");
-        }
-    }
 }
 
 void DeviceDriver::write(long address, int data)
